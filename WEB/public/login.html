@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)https://getbootstrap.com/docs/4.0/examples/sign-in/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://getbootstrap.com/favicon.ico">
+
+    <title>Signin Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./data/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./data/signin.css" rel="stylesheet">
+  <style>#content > #right > .dose > .dosesingle,
+#content > #center > .dose > .dosesingle
+{display:none !important;}</style>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBF2tIfG9Lj1XC9R47AVsg1ciZCMQF9Wxs",
+      authDomain: "magicservice-f5e52.firebaseapp.com",
+      databaseURL: "https://magicservice-f5e52.firebaseio.com",
+      projectId: "magicservice-f5e52",
+      storageBucket: "magicservice-f5e52.appspot.com",
+      messagingSenderId: "205163648868"
+    };
+    firebase.initializeApp(config);
+    var t = 0;
+    function login(){
+      var email = document.getElementById("inputEmail").value;
+      var password = document.getElementById("inputPassword").value;
+      console.log(email+":"+password);
+      firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorMessage);
+      });
+    }
+    function out(){
+      firebase.auth().signOut().then(function() {
+        console.log("Salio correctamente");
+        document.getElementById("lbl1").innerHTML = "Salio correctamente";
+      }).catch(function(error) {
+        console.log("Un error al intentar salir de sesion");
+      });
+    }
+    firebase.auth().onAuthStateChanged(function(user) {
+      
+      if (user) {
+        console.log("Usuario Iniciado");
+        if(t===0){
+          out();
+        }else{
+          window.location.replace("index.html");
+        }
+      } else {
+        console.log("Usuario no iniciado");
+        t = 1;
+      }
+    });
+  </script>
+
+</head>
+
+  <body class="text-center" style="">
+    <form class="form-signin">
+      <img class="mb-4" src="./data/bootstrap-solid.svg" alt="" width="72" height="72">
+      <h1 id="lbl1" class="h3 mb-3 font-weight-normal">Please sign in</h1>
+      <label for="inputEmail" class="sr-only">Email address</label>
+      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+      <button class="btn btn-lg btn-primary btn-block" type="button" onclick="login()">Sign in</button>
+      <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
+    </form>
+  
+
+</body></html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://getbootstrap.com/favicon.ico">
+
+    <title>Magic Service</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./data/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./data/album.css" rel="stylesheet">
+  <style>#content > #right > .dose > .dosesingle,
+#content > #center > .dose > .dosesingle
+{display:none !important;}</style>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-storage.js"></script>
+  <script>
+    class Archivo{
+      constructor(key, date, file){
+        this.key = key;
+        this.date = date;
+        this.file = file;
+      }
+      agregaURL(url){
+        this.url = url;
+      }
+    }
+
+    // Initialize Firebase
+    var database;
+    var uid;
+    var storage;
+    var archivos = [];
+    var config = {
+      apiKey: "AIzaSyBF2tIfG9Lj1XC9R47AVsg1ciZCMQF9Wxs",
+      authDomain: "magicservice-f5e52.firebaseapp.com",
+      databaseURL: "https://magicservice-f5e52.firebaseio.com",
+      projectId: "magicservice-f5e52",
+      storageBucket: "magicservice-f5e52.appspot.com",
+      messagingSenderId: "205163648868"
+    };
+    firebase.initializeApp(config);
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        uid = user.uid;
+        console.log("Usuario Iniciado");
+        document.getElementById("a_login").innerText = "Salir";
+        database = firebase.database().ref('files/' + user.uid + "/");
+        storage = firebase.storage().ref();
+
+        var query = database.orderByKey();
+          query.once("value")
+            .then(function(snapshot) {
+              snapshot.forEach(function(childSnapshot) {
+                let nuevoArchivo = new Archivo(childSnapshot.key,childSnapshot.val().date,childSnapshot.val().file)
+                archivos.push(nuevoArchivo);
+                let id = archivos.length-1;
+                
+                var listaArchivos = document.getElementById("listaDeArchivos");
+                var nuevo = document.createElement("a");
+                nuevo.classList.add("list-group-item");
+                nuevo.classList.add("list-group-item-action");
+                nuevo.id = archivos.length-1;
+                nuevo.innerHTML = archivos[archivos.length-1].file + '<p class="text-right" id="' + nuevo.id + '">' +  (new Date(archivos[archivos.length-1].date)).toLocaleDateString('en',{hour:'2-digit',minute:'2-digit'}) + '</p>';
+                nuevo.addEventListener("click",clickArchivo)
+                listaArchivos.appendChild(nuevo);
+            });
+          });
+
+      } else {
+        console.log("Usuario no iniciado");
+      }
+    });
+
+    function clickArchivo(element){
+      console.log(element.target.id); //Poc en el array de Archivos del archivo seleccionado
+      let id = element.target.id;
+      storage.child("" + uid + "/" + archivos[id].key + "/" + archivos[id].file).getDownloadURL().then(function(url) { 
+        window.open(url,'_blank');
+      }).catch(function(error) {
+        console.log(error);
+      });
+    }
+  
+  </script>
+  </head>
+
+  <body style="">
+
+    <header>
+      <div class="bg-dark collapse" id="navbarHeader" style="">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-8 col-md-7 py-4">
+              <h4 class="text-white">About</h4>
+              <p class="text-muted">Proyecto escolar, sin ánimos de lucro.</p>
+              <p class="text-muted">School project, non-profit.</p>
+            </div>
+            <div class="col-sm-4 offset-md-1 py-4">
+              <h4 class="text-white">Menú</h4>
+              <ul class="list-unstyled">
+                <li><a href="index.html" class="text-white">Inicio</a></li>
+                <li><a href="login.html" id="a_login" class="text-white">Login</a></li>
+                <li><a href="about.html" class="text-white">About</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main role="main">
+
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">Inicio Prototipo Vista Lista</h1>
+          <p class="lead text-muted">Vista de todos los archivos por una lista</p>
+        </div>
+      </section>
+
+      <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="col">
+                <div class="list-group" id="listaDeArchivos">
+                </div>
+            </div>
+          </div>
+      </div>
+
+    </main>
+
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Volver Arriba</a>
+        </p>
+        <p>Funcionando gracias a Firebase, JavaScript, Bootstrap, Python, Tensorflow, Keras.</p>
+        <p>Usando <a href="https://arxiv.org/pdf/1705.08086.pdf">Style Transfer via Feature Transforms by Li et al</a> con la implementación de <a href="https://github.com/eridgd/WCT-TF">eridgd</a> en el server backend, para mayor información <a href="about.html">About</a></p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./data/jquery-3.2.1.slim.min.js"></script>
+    <script src="./data/popper.min.js"></script>
+    <script src="./data/bootstrap.min.js"></script>
+  
+
+<svg xmlns="http://www.w3.org/2000/svg" width="349" height="225" viewBox="0 0 349 225" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="17" style="font-weight:bold;font-size:17pt;font-family:Arial, Helvetica, Open Sans, sans-serif">Thumbnail</text></svg>
+<ul id="contextMenu" class="dropdown-menu" role="menu" style="display:none" >
+    <li><a tabindex="-1" href="#">Eliminar</a></li>
+    <li class="divider"></li>
+    <li><a tabindex="-1" href="#">Nada - Nada</a></li>
+</ul>
+<script>
+  (function ($, window) {
+
+$.fn.contextMenu = function (settings) {
+
+    return this.each(function () {
+
+        // Open context menu
+        $(this).on("contextmenu", function (e) {
+            // return native menu if pressing control
+            if (e.ctrlKey) return;
+            
+            //open menu
+            var $menu = $(settings.menuSelector)
+                .data("invokedOn", $(e.target))
+                .show()
+                .css({
+                    position: "absolute",
+                    left: getMenuPosition(e.clientX, 'width', 'scrollLeft'),
+                    top: getMenuPosition(e.clientY, 'height', 'scrollTop')
+                })
+                .off('click')
+                .on('click', 'a', function (e) {
+                    $menu.hide();
+            
+                    var $invokedOn = $menu.data("invokedOn");
+                    var $selectedMenu = $(e.target);
+                    
+                    settings.menuSelected.call(this, $invokedOn, $selectedMenu);
+                });
+            
+            return false;
+        });
+
+        //make sure menu closes on any click
+        $('body').click(function () {
+            $(settings.menuSelector).hide();
+        });
+    });
+    
+    function getMenuPosition(mouse, direction, scrollDir) {
+        var win = $(window)[direction](),
+            scroll = $(window)[scrollDir](),
+            menu = $(settings.menuSelector)[direction](),
+            position = mouse + scroll;
+                    
+        // opening menu would pass the side of the page
+        if (mouse + menu > win && menu < mouse) 
+            position -= menu;
+        
+        return position;
+    }    
+
+};
+})(jQuery, window);
+$("#listaDeArchivos").contextMenu({
+menuSelector: "#contextMenu",
+menuSelected: function (invokedOn, selectedMenu) {
+  /*
+    var msg = "You selected the menu item '" + selectedMenu.text() +
+        "' on the value '" + invokedOn.text() + "'";
+    alert(msg);
+    */
+   if(selectedMenu.text() == "Eliminar"){
+     alert("Eliminando S/Implementar");
+   }
+}
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://getbootstrap.com/favicon.ico">
+
+    <title>Magic Service</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./data/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./data/album.css" rel="stylesheet">
+  <style>#content > #right > .dose > .dosesingle,
+#content > #center > .dose > .dosesingle
+{display:none !important;}</style>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBF2tIfG9Lj1XC9R47AVsg1ciZCMQF9Wxs",
+      authDomain: "magicservice-f5e52.firebaseapp.com",
+      databaseURL: "https://magicservice-f5e52.firebaseio.com",
+      projectId: "magicservice-f5e52",
+      storageBucket: "magicservice-f5e52.appspot.com",
+      messagingSenderId: "205163648868"
+    };
+    firebase.initializeApp(config);
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        console.log("Usuario Iniciado");
+        document.getElementById("a_login").innerText = "Salir";
+        document.getElementById("logp1").innerText = "Salir";
+      } else {
+        console.log("Usuario no iniciado");
+      }
+    });
+  
+  </script>
+  </head>
+
+  <body style="">
+
+    <header>
+      <div class="bg-dark collapse" id="navbarHeader" style="">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-8 col-md-7 py-4">
+              <h4 class="text-white">About</h4>
+              <p class="text-muted">Proyecto escolar, sin ánimos de lucro.</p>
+              <p class="text-muted">School project, non-profit.</p>
+            </div>
+            <div class="col-sm-4 offset-md-1 py-4">
+              <h4 class="text-white">Menú</h4>
+              <ul class="list-unstyled">
+                <li><a href="index.html" class="text-white">Inicio</a></li>
+                <li><a href="login.html" id="a_login" class="text-white">Login</a></li>
+                <li><a href="about.html" class="text-white">About</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main role="main">
+
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">Inicio Prototipo</h1>
+          <p class="lead text-muted">Aplicacion WEB que permite almacenar archivos, y realizar transferencia de estilo a imágenes via redes neuronales.</p>
+          <p>
+            <a id="logp1" href="login.html" class="btn btn-primary my-2">Login</a>
+            <a href="about.html" class="btn btn-secondary my-2">About</a>
+          </p>
+        </div>
+      </section>
+
+      <div class="album py-5 bg-light">
+        <div class="container">
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="card mb-4 box-shadow">
+                <img class="card-img-top" alt="Test [100%x225]" style="height: 225px; width: 100%; display: block;" src="./data/test.jpg" data-holder-rendered="true">
+                <div class="card-body">
+                  <p class="card-text">This is a Test</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    </div>
+                    <small class="text-muted">Test</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Volver Arriba</a>
+        </p>
+        <p>Funcionando gracias a Firebase, JavaScript, Bootstrap, Python, Tensorflow, Keras.</p>
+        <p>Usando <a href="https://arxiv.org/pdf/1705.08086.pdf">Style Transfer via Feature Transforms by Li et al</a> con la implementación de <a href="https://github.com/eridgd/WCT-TF">eridgd</a> en el server backend, para mayor información <a href="about.html">About</a></p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./data/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="./data/popper.min.js"></script>
+    <script src="./data/bootstrap.min.js"></script>
+  
+
+<svg xmlns="http://www.w3.org/2000/svg" width="349" height="225" viewBox="0 0 349 225" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="17" style="font-weight:bold;font-size:17pt;font-family:Arial, Helvetica, Open Sans, sans-serif">Thumbnail</text></svg></body></html>

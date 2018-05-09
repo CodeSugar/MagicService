@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://getbootstrap.com/favicon.ico">
+
+    <title>Magic Service</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./data/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./data/album.css" rel="stylesheet">
+  <style>#content > #right > .dose > .dosesingle,
+#content > #center > .dose > .dosesingle
+{display:none !important;}</style>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-database.js"></script>
+  <script>
+    var storageRef;
+    var uid;
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBF2tIfG9Lj1XC9R47AVsg1ciZCMQF9Wxs",
+      authDomain: "magicservice-f5e52.firebaseapp.com",
+      databaseURL: "https://magicservice-f5e52.firebaseio.com",
+      projectId: "magicservice-f5e52",
+      storageBucket: "magicservice-f5e52.appspot.com",
+      messagingSenderId: "205163648868"
+    };
+    firebase.initializeApp(config);
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        console.log("Usuario Iniciado");
+        document.getElementById("a_login").innerText = "Salir";
+        uid = user.uid;
+        storageRef = firebase.storage().ref();
+        var database = firebase.database();
+      } else {
+        console.log("Usuario no iniciado");
+      }
+    });
+
+   function previewFile() {
+        var preview = document.querySelector('img');
+        var file    = document.querySelector('input[type=file]').files[0];
+        var reader  = new FileReader();
+
+        //+++++++++++++++++++++++++++++++++++++++++++Agregar visor para todo tipo de elemento
+        reader.onloadend = function () {
+            let uri = reader.result;
+            if(uri.split(";")[0].indexOf("image") == -1)
+                console.log(uri.split(";")[0]);
+            else
+                preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+            //Wait confirm an upload file to firebase
+            let fechaSubido = Date.now();
+            console.log("Subiendo");
+            let base = {
+                date:(Date.now()),
+                file:file.name
+            };
+            let key = firebase.database().ref('files/' + uid + "/").push(base).key;;
+            let storageRefNuevo = storageRef.child("" + uid + "/" + key + "/" + file.name);
+            storageRefNuevo.put(file).then(function(snapshot) {
+                console.log("Yei :D ya estoy en firebase storage");
+            });
+        } else {
+            preview.src = "";
+        }
+    }
+
+  </script>
+  </head>
+
+  <body >
+
+    <header>
+      <div class="bg-dark collapse" id="navbarHeader" style="">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-8 col-md-7 py-4">
+              <h4 class="text-white">About</h4>
+              <p class="text-muted">Proyecto escolar, sin ánimos de lucro.</p>
+              <p class="text-muted">School project, non-profit.</p>
+            </div>
+            <div class="col-sm-4 offset-md-1 py-4">
+              <h4 class="text-white">Menú</h4>
+              <ul class="list-unstyled">
+                <li><a href="index.html" class="text-white">Inicio</a></li>
+                <li><a href="login.html" id="a_login" class="text-white">Login</a></li>
+                <li><a href="about.html" class="text-white">About</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main role="main">
+
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">Prototipo de Upload</h1>
+          <p class="lead text-muted">Vista en la cual se pueden subir archivos, además de poder ver la miniatura del mismo.</p>
+        </div>
+      </section>
+
+      <div class="album py-5 bg-light">
+        <div class="container">
+
+          <div class="col">
+            <input type="file" onchange="previewFile()"><br>
+            <img src="" height="200" alt="Preview de Imagen">
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Volver Arriba</a>
+        </p>
+        <p>Funcionando gracias a Firebase, JavaScript, Bootstrap, Python, Tensorflow, Keras.</p>
+        <p>Usando <a href="https://arxiv.org/pdf/1705.08086.pdf">Style Transfer via Feature Transforms by Li et al</a> con la implementación de <a href="https://github.com/eridgd/WCT-TF">eridgd</a> en el server backend, para mayor información <a href="about.html">About</a></p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="data/jquery-3.2.1.slim.min.js"></script>
+    <script src="data/popper.min.js"></script>
+    <script src="data/bootstrap.min.js"></script>
+  
+
+<svg xmlns="http://www.w3.org/2000/svg" width="349" height="225" viewBox="0 0 349 225" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="17" style="font-weight:bold;font-size:17pt;font-family:Arial, Helvetica, Open Sans, sans-serif">Thumbnail</text></svg></body></html>
