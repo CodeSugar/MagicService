@@ -39,17 +39,14 @@ Homepage | Login
 ![Homepage Screenshot](screenshots/homepage.png?raw=true "Homepage")  |  ![Login Screenshot](screenshots/login.png?raw=true "Login")
 
 
-##### App list images
-![App list images Screenshot](screenshots/listFiles.png?raw=true "App list images")
+App list images | Upload Image
+:-------------------------:|:-------------------------:
+![App list images Screenshot](screenshots/listFiles.png?raw=true "App list images")  |  ![Upload Image Screenshot](screenshots/uploadFile.png?raw=true "Upload Image")
 
-##### Upload Image
-![Upload Image Screenshot](screenshots/uploadFile.png?raw=true "Upload Image")
+Apply Style | Apply Style Options
+:-------------------------:|:-------------------------:
+![Apply Style Screenshot](screenshots/applyStyle.png?raw=true "Apply Style")  |  ![Apply Style Options Screenshot](screenshots/applyStyleMenu.png?raw=true "Apply Style Options")
 
-##### Apply Style
-![Apply Style Screenshot](screenshots/applyStyle.png?raw=true "Apply Style")
-
-##### Apply Style Options
-![Apply Style Options Screenshot](screenshots/applyStyleMenu.png?raw=true "Apply Style Options")
 
 ##### Photo base image
 
