@@ -57,7 +57,7 @@ Overall, MagicService aims to democratize the power of neural style transfer and
 
 ![Base Image](screenshots/base.jpg?raw=true "baseImage")
 
-          | 
+Result images | Result images
 :-------------------------:|:-------------------------:
 ![Result Image](screenshots/result1.jpg?raw=true "result 1")  |  ![Result Image](screenshots/result2.jpg?raw=true "result 2")
 ![Result Image](screenshots/result3.jpg?raw=true "result 3")  |  ![Result Image](screenshots/result4.jpg?raw=true "result 4")
