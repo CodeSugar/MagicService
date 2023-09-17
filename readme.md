@@ -34,12 +34,10 @@ Overall, MagicService aims to democratize the power of neural style transfer and
 
 ## Screenshots
 
+Homepage | Login
+:-------------------------:|:-------------------------:
+![Homepage Screenshot](screenshots/homepage.png?raw=true "Homepage")  |  ![Login Screenshot](screenshots/login.png?raw=true "Login")
 
-##### Homepage
-![Homepage Screenshot](screenshots/homepage.png?raw=true "Homepage")
-
-##### login
-![Login Screenshot](screenshots/login.png?raw=true "Login")
 
 ##### App list images
 ![App list images Screenshot](screenshots/listFiles.png?raw=true "App list images")
@@ -53,9 +51,11 @@ Overall, MagicService aims to democratize the power of neural style transfer and
 ##### Apply Style Options
 ![Apply Style Options Screenshot](screenshots/applyStyleMenu.png?raw=true "Apply Style Options")
 
-##### Photos result examples
+##### Photo base image
 
 ![Base Image](screenshots/base.jpg?raw=true "baseImage")
+
+##### Examples results
 
 Result images | Result images
 :-------------------------:|:-------------------------:
