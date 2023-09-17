@@ -2,9 +2,9 @@
 
 MagicService is a school project that provides a WebUI for performing Image Style Transfer using a combination of Firebase, Python, neural networks, and a producer/consumer asynchronous architecture. This project leverages two popular style transfer methods:
 
-1. **Perceptual Losses for Real-Time Style Transfer and Super-Resolution**: This method uses deep neural networks to transfer the artistic style of one image to another while maintaining the content. It allows for real-time style transfer and can also be used for super-resolution tasks.
+1. **Perceptual Losses for Real-Time Style Transfer and Super-Resolution**: This method uses deep neural networks to transfer the artistic style of one image to another while maintaining the content. It allows for real-time style transfer and can also be used for super-resolution tasks. [Paper](https://cs.stanford.edu/people/jcjohns/eccv16/)
 
-2. **Universal Style Transfer via Feature Transforms**: This method aims to transfer the style of one image to another by matching feature statistics. It offers a versatile approach to style transfer across a wide range of images.
+2. **Universal Style Transfer via Feature Transforms**: This method aims to transfer the style of one image to another by matching feature statistics. It offers a versatile approach to style transfer across a wide range of images. [Paper](https://arxiv.org/pdf/1705.08086.pdf)
 
 ## Technologies Used
 
@@ -58,3 +58,6 @@ Result images | Result images
 :-------------------------:|:-------------------------:
 ![Result Image](screenshots/result1.jpg?raw=true "result 1")  |  ![Result Image](screenshots/result2.jpg?raw=true "result 2")
 ![Result Image](screenshots/result3.jpg?raw=true "result 3")  |  ![Result Image](screenshots/result4.jpg?raw=true "result 4")
+
+---
+School project, non-profit.
